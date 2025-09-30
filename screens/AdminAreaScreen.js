@@ -2,10 +2,10 @@ import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 
-export default function SettingsScreen(){
+export default function AdminAreaScreen(){
     return(
          <SafeAreaView style={styles.container}>
-            <Text style={styles.text}>⚙️ Ajuste suas Configurações</Text>
+            <Text style={styles.text}>📍 Veja Administração da Área</Text>
          </SafeAreaView>
     );
 }
