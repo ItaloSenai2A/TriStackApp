@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -9,15 +10,16 @@ export default function WelcomeScreen({ navigation }) {
       {/* Texto no canto superior esquerdo */}
       <Text style={styles.welcome}>Olá, Usuário!</Text>
 
-      {/* Logo centralizada e bem maior */}
+      {/* Logo centralizada */}
       <Image
         source={require("../assets/LogoTriStack.png")}
         style={styles.logo}
         resizeMode="contain"
       />
 
-      {/* Card branco ovalado com borda verde */}
+      {/* Fundo verde curvado */}
       <View style={styles.cardWrapper}>
+        {/* Card branco ocupando toda a largura */}
         <View style={styles.card}>
           <Text style={styles.subTitle}>Bem-Vindo!</Text>
           <Text style={styles.description}>
@@ -25,11 +27,16 @@ export default function WelcomeScreen({ navigation }) {
             que conecta tecnologia e agricultura inteligente.
           </Text>
 
+          {/* Botão Criar Conta */}
           <TouchableOpacity
             style={styles.button}
             onPress={() => navigation.navigate("Home")}
           >
+            <View style={styles.iconCircle}>
+              <Ionicons name="chevron-forward" size={20} color="#fff" />
+            </View>
             <Text style={styles.buttonText}>Criar Conta</Text>
+            <Text style={styles.arrows}>{">>>"}</Text>
           </TouchableOpacity>
 
           <Text style={styles.loginText}>
@@ -63,34 +70,35 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   logo: {
-    width: width * 0.9,
+    width: width * 0.85,
     height: height * 0.35,
-    marginTop: 40,
-    marginBottom: 20,
+    marginTop: 30,
+    marginBottom: 10,
   },
   cardWrapper: {
     flex: 1,
     width: "100%",
-    backgroundColor: "#4CAF50", // verde para ser o contorno
-    borderTopLeftRadius: 180,
-    borderTopRightRadius: 180,
-    padding: 4, // espessura do contorno
+    backgroundColor: "#67BC45",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    overflow: "hidden", // garante que o branco siga o arredondado
   },
   card: {
     flex: 1,
-    backgroundColor: "#fff", // fundo branco
-    borderTopLeftRadius: 180,
-    borderTopRightRadius: 180,
+    width: "100%", // ocupa toda a lateral da tela
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     alignItems: "center",
     justifyContent: "center",
-    padding: 30,
+    paddingHorizontal: 25,
+    paddingTop: 30,
   },
   subTitle: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#4CAF50",
+    color: "#67BC45",
     marginBottom: 10,
-    marginTop: 30,
   },
   description: {
     fontSize: 15,
@@ -99,24 +107,48 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   button: {
-    backgroundColor: "#8BC34A",
-    paddingVertical: 14,
-    paddingHorizontal: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F1F8E9",
+    paddingVertical: 12,
+    paddingHorizontal: 18,
     borderRadius: 30,
-    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
     marginBottom: 15,
+    minWidth: 220,
+    maxWidth: 260,
+  },
+  iconCircle: {
+    width: 35,
+    height: 35,
+    borderRadius: 35 / 2,
+    backgroundColor: "#67BC45",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 17,
-    fontWeight: "bold",
+    color: "#67BC45",
+    fontSize: 18,
+    fontWeight: "500",
+    flex: 1,
+    textAlign: "center",
+  },
+  arrows: {
+    color: "#A5D6A7",
+    fontSize: 18,
+    marginLeft: 5,
   },
   loginText: {
     fontSize: 15,
     color: "#333",
   },
   loginLink: {
-    color: "#4CAF50",
+    color: "#67BC45",
     fontWeight: "bold",
   },
 });
