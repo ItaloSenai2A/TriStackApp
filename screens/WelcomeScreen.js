@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
@@ -7,19 +14,15 @@ const { width, height } = Dimensions.get("window");
 export default function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* Texto no canto superior esquerdo */}
       <Text style={styles.welcome}>Olá, Usuário!</Text>
 
-      {/* Logo centralizada */}
       <Image
         source={require("../assets/LogoTriStack.png")}
         style={styles.logo}
         resizeMode="contain"
       />
 
-      {/* Fundo verde curvado */}
       <View style={styles.cardWrapper}>
-        {/* Card branco ocupando toda a largura */}
         <View style={styles.card}>
           <Text style={styles.subTitle}>Bem-Vindo!</Text>
           <Text style={styles.description}>
@@ -27,10 +30,9 @@ export default function WelcomeScreen({ navigation }) {
             que conecta tecnologia e agricultura inteligente.
           </Text>
 
-          {/* Botão Criar Conta */}
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Cadastro")}
           >
             <View style={styles.iconCircle}>
               <Ionicons name="chevron-forward" size={20} color="#fff" />
@@ -43,7 +45,7 @@ export default function WelcomeScreen({ navigation }) {
             Já possui cadastro?{" "}
             <Text
               style={styles.loginLink}
-              onPress={() => navigation.navigate("Profile")}
+              onPress={() => navigation.navigate("Login")}
             >
               Entrar
             </Text>
@@ -81,11 +83,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#67BC45",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    overflow: "hidden", // garante que o branco siga o arredondado
+    overflow: "hidden",
   },
   card: {
     flex: 1,
-    width: "100%", // ocupa toda a lateral da tela
+    width: "100%",
     backgroundColor: "#fff",
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,

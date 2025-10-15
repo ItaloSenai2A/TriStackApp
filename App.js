@@ -1,32 +1,32 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack"; // IMPORTANTE
+import React from "react";
 import { Text } from "react-native";
-import { enableScreens } from "react-native-screens";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { enableScreens } from "react-native-screens";
 
-
-// Importa as telas
+// Telas
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import SettingsScreen from "./screens/SettingsScreen";
-import WelcomeScreen from "./screens/WelcomeScreen"; // NOVA
+import WelcomeScreen from "./screens/WelcomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import CadastroScreen from "./screens/CadastroScreen";
 
 enableScreens();
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Tabs principais
 function MainTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#007AFF",
+        tabBarActiveTintColor: "#67BC45",
         tabBarInactiveTintColor: "#666",
         tabBarHideOnKeyboard: true,
-        animation: "shift",
       }}
     >
       <Tab.Screen
@@ -38,7 +38,6 @@ function MainTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Perfil"
         component={ProfileScreen}
@@ -48,7 +47,6 @@ function MainTabs() {
           ),
         }}
       />
-
       <Tab.Screen
         name="Configurações"
         component={SettingsScreen}
@@ -62,15 +60,14 @@ function MainTabs() {
   );
 }
 
-// Stack principal
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* Tela inicial */}
+        <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          {/* Tabs */}
+          <Stack.Screen name="Cadastro" component={CadastroScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="MainTabs" component={MainTabs} />
         </Stack.Navigator>
       </NavigationContainer>
