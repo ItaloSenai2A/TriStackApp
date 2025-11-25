@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -35,7 +35,14 @@ export default function LoginScreen() {
           "usuarioLogado",
           JSON.stringify(usuarioEncontrado)
         );
-        navigation.replace("MainTabs");
+
+        // ✅ Correção: reset para rota válida "MainTabs"
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "MainTabs" }],
+          })
+        );
       } else {
         setError("Email ou senha incorretos");
       }
