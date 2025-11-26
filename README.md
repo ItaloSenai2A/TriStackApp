@@ -27,7 +27,7 @@ O TriStack oferece uma experiência rápida, segura e confiável, mesmo em ambie
 
 -Autores
 
-# **🔍 1. Visão Geral**
+# **🔍 Visão Geral**
 
 O TriStack coleta dados de sensores IoT, processa informações críticas e exibe gráficos, mapas e alertas para o usuário.
 O app funciona online e offline, sincronizando automaticamente dados, limites críticos e alertas.
@@ -44,7 +44,11 @@ Principais objetivos:
 
 -Fornecer navegação intuitiva e rápida.
 
-# **⚙️ 2. Funcionalidades**
+## 📸 **Preview**
+<img width="394" height="633" alt="image-removebg-preview (20)" src="https://github.com/user-attachments/assets/c81f3620-5c29-49aa-936c-4769f7df1688" />
+
+
+# **⚙️ Funcionalidades**
 -🛰️ Monitoramento em tempo real
 
 -Atualização de dados via API e WebSocket.
