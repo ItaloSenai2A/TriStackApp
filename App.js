@@ -3,12 +3,14 @@ import { View, Text, TouchableOpacity, Modal } from "react-native";
 import {
   NavigationContainer,
   useNavigation,
-  useRoute,
   CommonActions,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+// Ícones das Tabs
+import { Home as HomeIcon, User, Settings, Bell } from "lucide-react-native";
 
 // Telas
 import HomeScreen from "./screens/HomeScreen";
@@ -18,7 +20,7 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import CadastroScreen from "./screens/CadastroScreen";
 
-// Telas novas
+// Telas adicionais
 import AdministracaoScreen from "./screens/AdministracaoScreen";
 import AlertasScreen from "./screens/AlertasScreen";
 import DashboardScreen from "./screens/DashboardScreen";
@@ -27,13 +29,18 @@ import SairScreen from "./screens/SairScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-/* -------------------------------
+/* -------------------------------------
    HEADER PERSONALIZADO
--------------------------------- */
-function CustomHeader() {
+-------------------------------------- */
+function CustomHeader({ title }) {
   const navigation = useNavigation();
-  const route = useRoute();
   const [menuVisible, setMenuVisible] = useState(false);
+
+  // Simulação de alertas
+  const alertas = [
+    { id: 1, texto: "Temperatura alta na garagem" },
+    { id: 2, texto: "Movimento detectado no quintal" },
+  ];
 
   return (
     <>
@@ -50,31 +57,50 @@ function CustomHeader() {
           justifyContent: "center",
         }}
       >
+        {/* Menu lateral */}
         <TouchableOpacity
           onPress={() => setMenuVisible(true)}
-          style={{ position: "absolute", left: 15, padding: 5 }}
+          style={{ position: "absolute", left: 15 }}
         >
-          <Text style={{ fontSize: 30, color: "#000" }}>☰</Text>
+          <Text style={{ fontSize: 30 }}>☰</Text>
         </TouchableOpacity>
 
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-          {route.name}
-        </Text>
+        {/* Título */}
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{title}</Text>
+
+        {/* Notificações */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Alertas")}
+          style={{ position: "absolute", right: 15 }}
+        >
+          <View>
+            <Bell size={26} color="#4CB917" />
+
+            {alertas.length > 0 && (
+              <View
+                style={{
+                  position: "absolute",
+                  top: -2,
+                  right: -2,
+                  width: 10,
+                  height: 10,
+                  backgroundColor: "red",
+                  borderRadius: 10,
+                }}
+              />
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
 
-      <Modal
-        visible={menuVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setMenuVisible(false)}
-      >
+      {/* MENU LATERAL */}
+      <Modal visible={menuVisible} transparent animationType="fade">
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => setMenuVisible(false)}
           style={{
             flex: 1,
             backgroundColor: "rgba(0,0,0,0.2)",
-            justifyContent: "flex-start",
           }}
         >
           <View
@@ -86,6 +112,33 @@ function CustomHeader() {
               gap: 20,
             }}
           >
+            <TouchableOpacity
+              onPress={() => {
+                setMenuVisible(false);
+                navigation.navigate("MainTabs", { screen: "Home" });
+              }}
+            >
+              <Text style={{ fontSize: 18 }}>Home</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                setMenuVisible(false);
+                navigation.navigate("MainTabs", { screen: "Perfil" });
+              }}
+            >
+              <Text style={{ fontSize: 18 }}>Meu Perfil</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                setMenuVisible(false);
+                navigation.navigate("MainTabs", { screen: "Configurações" });
+              }}
+            >
+              <Text style={{ fontSize: 18 }}>Configurações</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               onPress={() => {
                 setMenuVisible(false);
@@ -133,36 +186,88 @@ function CustomHeader() {
   );
 }
 
-/* -------------------------------
-   WRAPPER PARA TELAS
--------------------------------- */
-function ScreenWithHeader({ children }) {
+/* -------------------------------------
+   WRAPPER COM HEADER
+-------------------------------------- */
+function ScreenWithHeader({ title, children }) {
   return (
     <>
-      <CustomHeader />
+      <CustomHeader title={title} />
       {children}
     </>
   );
 }
 
-/* -------------------------------
-   TABS
--------------------------------- */
+/* -------------------------------------
+   TABS COM ÍCONES
+-------------------------------------- */
 function Tabs() {
   return (
-    <ScreenWithHeader>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Perfil" component={ProfileScreen} />
-        <Tab.Screen name="Configurações" component={SettingsScreen} />
-      </Tab.Navigator>
-    </ScreenWithHeader>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#4CB917",
+        tabBarInactiveTintColor: "#777",
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 5,
+        },
+      }}
+    >
+      {/* HOME */}
+      <Tab.Screen
+        name="Home"
+        children={() => (
+          <ScreenWithHeader title="Home">
+            <HomeScreen />
+          </ScreenWithHeader>
+        )}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <HomeIcon color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* PERFIL */}
+      <Tab.Screen
+        name="Perfil"
+        children={() => (
+          <ScreenWithHeader title="Meu Perfil">
+            <ProfileScreen />
+          </ScreenWithHeader>
+        )}
+        options={{
+          tabBarLabel: "Perfil",
+          tabBarIcon: ({ color, size }) => (
+            <User color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* CONFIGURAÇÕES */}
+      <Tab.Screen
+        name="Configurações"
+        children={() => (
+          <ScreenWithHeader title="Configurações">
+            <SettingsScreen />
+          </ScreenWithHeader>
+        )}
+        options={{
+          tabBarLabel: "Config",
+          tabBarIcon: ({ color, size }) => (
+            <Settings color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-/* -------------------------------
-   STACK PRINCIPAL
--------------------------------- */
+/* -------------------------------------
+   STACK FINAL
+-------------------------------------- */
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -172,10 +277,12 @@ export default function App() {
           <Stack.Screen name="Cadastro" component={CadastroScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
 
+          <Stack.Screen name="MainTabs" component={Tabs} />
+
           <Stack.Screen
             name="Administracao"
             children={() => (
-              <ScreenWithHeader>
+              <ScreenWithHeader title="Administração">
                 <AdministracaoScreen />
               </ScreenWithHeader>
             )}
@@ -184,7 +291,7 @@ export default function App() {
           <Stack.Screen
             name="Alertas"
             children={() => (
-              <ScreenWithHeader>
+              <ScreenWithHeader title="Alertas">
                 <AlertasScreen />
               </ScreenWithHeader>
             )}
@@ -193,7 +300,7 @@ export default function App() {
           <Stack.Screen
             name="Dashboard"
             children={() => (
-              <ScreenWithHeader>
+              <ScreenWithHeader title="Dashboard">
                 <DashboardScreen />
               </ScreenWithHeader>
             )}
@@ -202,13 +309,11 @@ export default function App() {
           <Stack.Screen
             name="Sair"
             children={() => (
-              <ScreenWithHeader>
+              <ScreenWithHeader title="Sair">
                 <SairScreen />
               </ScreenWithHeader>
             )}
           />
-
-          <Stack.Screen name="MainTabs" component={Tabs} />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>

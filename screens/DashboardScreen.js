@@ -1,51 +1,39 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
-import {
-  VictoryLine,
-  VictoryChart,
-  VictoryAxis,
-  VictoryBar,
-  VictoryPie,
-} from "victory-native";
+import { View, Text, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { LineChart, BarChart } from "react-native-chart-kit";
+
+const screenWidth = Dimensions.get("window").width;
 
 export default function DashboardScreen() {
-  const temperatureData = [
-    { x: "1m", y: 22 },
-    { x: "2m", y: 24 },
-    { x: "3m", y: 26 },
-    { x: "4m", y: 25 },
-    { x: "5m", y: 23 },
-    { x: "6m", y: 27 },
-  ];
+  const temperatureData = {
+    labels: ["1m", "2m", "3m", "4m", "5m", "6m"],
+    datasets: [{ data: [22, 24, 26, 25, 23, 27] }]
+  };
 
-  const soilMoistureData = [
-    { x: "1m", y: 40 },
-    { x: "2m", y: 45 },
-    { x: "3m", y: 50 },
-    { x: "4m", y: 48 },
-    { x: "5m", y: 52 },
-    { x: "6m", y: 55 },
-  ];
+  const soilMoistureData = {
+    labels: ["1m", "2m", "3m", "4m", "5m", "6m"],
+    datasets: [{ data: [40, 45, 50, 48, 52, 55] }]
+  };
 
-  const lightIntensityData = [
-    { x: "1h", blue: 300, green: 250 },
-    { x: "2h", blue: 320, green: 270 },
-    { x: "3h", blue: 310, green: 260 },
-    { x: "4h", blue: 330, green: 280 },
-    { x: "5h", blue: 340, green: 290 },
-    { x: "6h", blue: 350, green: 300 },
-  ];
-
-  const airQualityColors = [
-    { x: "Boa", y: 33.3 },
-    { x: "Moderada", y: 33.3 },
-    { x: "Ruim", y: 33.3 },
-  ];
+  const lightIntensityData = {
+    labels: ["1h", "2h", "3h", "4h", "5h", "6h"],
+    datasets: [
+      {
+        data: [300, 320, 310, 330, 340, 350],
+        color: () => "#0d6efd", // Azul
+      },
+      {
+        data: [250, 270, 260, 280, 290, 300],
+        color: () => "#20c997", // Verde
+      },
+    ]
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Painel Ambiental 🌿</Text>
 
+      {/* CARDS */}
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Nível de Água</Text>
@@ -59,71 +47,70 @@ export default function DashboardScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Qualidade do Ar</Text>
-          <VictoryPie
-            data={airQualityColors}
-            width={160}
-            height={160}
-            innerRadius={40}
-            colorScale={["#00C49F", "#FFBB28", "#FF4C4C"]}
-            startAngle={180}
-            endAngle={0}
-          />
+          <Text style={[styles.cardValue, { color: "#28a745" }]}>Boa</Text>
         </View>
       </View>
 
-      <View style={styles.chartContainer}>
+      {/* TEMPERATURA */}
+      <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Temperatura (°C)</Text>
-
-        <VictoryChart>
-          <VictoryAxis dependentAxis />
-          <VictoryAxis />
-          <VictoryLine
-            data={temperatureData}
-            interpolation="monotoneX"
-            style={{ data: { stroke: "#dc3545", strokeWidth: 3 } }}
-          />
-        </VictoryChart>
+        <LineChart
+          data={temperatureData}
+          width={screenWidth - 40}
+          height={220}
+          yAxisSuffix="°"
+          chartConfig={chartConfig}
+          bezier
+          style={styles.chart}
+        />
       </View>
 
-      <View style={styles.chartContainer}>
+      {/* UMIDADE DO SOLO */}
+      <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Umidade do Solo (%)</Text>
-
-        <VictoryChart>
-          <VictoryAxis dependentAxis />
-          <VictoryAxis />
-          <VictoryLine
-            data={soilMoistureData}
-            interpolation="monotoneX"
-            style={{ data: { stroke: "#198754", strokeWidth: 3 } }}
-          />
-        </VictoryChart>
+        <LineChart
+          data={soilMoistureData}
+          width={screenWidth - 40}
+          height={220}
+          yAxisSuffix="%"
+          chartConfig={chartConfigGreen}
+          bezier
+          style={styles.chart}
+        />
       </View>
 
-      <View style={styles.chartContainer}>
+      {/* LUZ - BARRAS */}
+      <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Intensidade da Luz</Text>
-
-        <VictoryChart>
-          <VictoryAxis />
-          <VictoryAxis dependentAxis />
-          <VictoryBar
-            data={lightIntensityData}
-            x="x"
-            y="blue"
-            barWidth={12}
-            style={{ data: { fill: "#0d6efd" } }}
-          />
-          <VictoryBar
-            data={lightIntensityData}
-            x="x"
-            y="green"
-            barWidth={12}
-            style={{ data: { fill: "#20c997" } }}
-          />
-        </VictoryChart>
+        <BarChart
+          data={lightIntensityData}
+          width={screenWidth - 40}
+          height={260}
+          chartConfig={chartConfig}
+          fromZero
+          style={styles.chart}
+          showValuesOnTopOfBars
+        />
       </View>
     </ScrollView>
   );
 }
+
+const chartConfig = {
+  backgroundGradientFrom: "#ffffff",
+  backgroundGradientTo: "#ffffff",
+  decimalPlaces: 1,
+  color: () => "#dc3545",
+  labelColor: () => "#333",
+};
+
+const chartConfigGreen = {
+  backgroundGradientFrom: "#ffffff",
+  backgroundGradientTo: "#ffffff",
+  decimalPlaces: 1,
+  color: () => "#198754",
+  labelColor: () => "#333",
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -138,18 +125,17 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
   card: {
     backgroundColor: "#fff",
     width: "32%",
     height: 180,
     borderRadius: 12,
-    padding: 10,
     justifyContent: "center",
     alignItems: "center",
-    elevation: 4,
+    elevation: 5,
   },
   cardTitle: {
     fontSize: 15,
@@ -160,17 +146,20 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: "bold",
   },
-  chartContainer: {
-    marginTop: 20,
+  chartBox: {
     backgroundColor: "#fff",
     borderRadius: 12,
     padding: 10,
+    marginTop: 20,
     elevation: 4,
   },
   chartTitle: {
+    textAlign: "center",
     fontSize: 18,
     fontWeight: "600",
-    textAlign: "center",
     marginBottom: 10,
+  },
+  chart: {
+    borderRadius: 12,
   },
 });
