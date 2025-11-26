@@ -3,174 +3,174 @@
 Aplicativo mobile desenvolvido em React Native, focado no monitoramento de dados ambientais, exibição de alertas críticos, funcionamento offline e integração com sensores IoT.
 O TriStack oferece uma experiência rápida, segura e confiável, mesmo em ambientes com conexão limitada.
 
-📑 Índice
+# **📑 Índice**
 
-Visão Geral
+-Visão Geral
 
-Funcionalidades
+-Funcionalidades
 
-Arquitetura do App
+-Arquitetura do App
 
-Estrutura de Navegação
+-Estrutura de Navegação
 
-Tecnologias Utilizadas
+-Tecnologias Utilizadas
 
-Instalação e Execução
+-Instalação e Execução
 
-Estrutura de Pastas
+-Estrutura de Pastas
 
-Conexão com API
+-Conexão com API
 
-Modo Offline
+-Modo Offline
 
-Desenvolvimento e Build
+-Desenvolvimento e Build
 
-Autores
+-Autores
 
-🔍 1. Visão Geral
+# **🔍 1. Visão Geral**
 
 O TriStack coleta dados de sensores IoT, processa informações críticas e exibe gráficos, mapas e alertas para o usuário.
 O app funciona online e offline, sincronizando automaticamente dados, limites críticos e alertas.
 
 Principais objetivos:
 
-Monitorar temperatura, umidade, luminosidade e outros indicadores ambientais.
+-Monitorar temperatura, umidade, luminosidade e outros indicadores ambientais.
 
-Mostrar alertas em tempo real.
+-Mostrar alertas em tempo real.
 
-Garantir funcionamento mesmo sem internet.
+-Garantir funcionamento mesmo sem internet.
 
-Sincronizar dados com API REST + WebSocket.
+-Sincronizar dados com API REST + WebSocket.
 
-Fornecer navegação intuitiva e rápida.
+-Fornecer navegação intuitiva e rápida.
 
-⚙️ 2. Funcionalidades
-🛰️ Monitoramento em tempo real
+# **⚙️ 2. Funcionalidades**
+-🛰️ Monitoramento em tempo real
 
-Atualização de dados via API e WebSocket.
+-Atualização de dados via API e WebSocket.
 
-Gráficos dinâmicos no Dashboard.
+-Gráficos dinâmicos no Dashboard.
 
-🚨 Gestão de alertas
+# **🚨 Gestão de alertas**
 
-Alertas críticos com cores visuais.
+-Alertas críticos com cores visuais.
 
-Histórico e detalhes de cada alerta.
+-Histórico e detalhes de cada alerta.
 
-Notificações locais.
+-Notificações locais.
 
-📍 Mapa Interativo
+# **📍 Mapa Interativo**
 
-Exibição de marcadores e zonas críticas.
+-Exibição de marcadores e zonas críticas.
 
-🧾 Persistência Offline
+# **🧾 Persistência Offline**
 
-Acesso a dados mesmo sem internet.
+-Acesso a dados mesmo sem internet.
 
-Sincronização automática ao reconectar.
+-Sincronização automática ao reconectar.
 
-👤 Perfil do Usuário
+# **👤 Perfil do Usuário**
 
-Edição de dados pessoais.
+-Edição de dados pessoais.
 
-Foto de perfil.
+-Foto de perfil.
 
-🔧 Configurações
+# **🔧 Configurações**
 
-Alteração de limites críticos.
+-Alteração de limites críticos.
 
-Salvamento local + sincronização posterior.
+-Salvamento local + sincronização posterior.
 
-🧱 3. Arquitetura do App
+# **🧱 3. Arquitetura do App**
 
-React Native CLI
+-React Native CLI
 
-React Navigation (Stack + Bottom Tabs)
+-React Navigation (Stack + Bottom Tabs)
 
-Context API / Redux (opcional) para estado global
+-Context API / Redux (opcional) para estado global
 
-AsyncStorage para persistência offline
+-AsyncStorage para persistência offline
 
-Axios para API
+-Axios para API
 
-WebSocket para alertas em tempo real
+-WebSocket para alertas em tempo real
 
-🧭 4. Estrutura de Navegação
+# **🧭 4. Estrutura de Navegação**
 
-O app combina Stack Navigator + Bottom Tab Navigator.
+-O app combina Stack Navigator + Bottom Tab Navigator.
 
-Stack Principal
+-Stack Principal
 
-WelcomeScreen
+-WelcomeScreen
 
-LoginScreen
+-LoginScreen
 
-CadastroScreen
+-CadastroScreen
 
-MainTabs
+-MainTabs
 
-AdministracaoScreen
+-AdministracaoScreen
 
-AlertasScreen
+-AlertasScreen
 
-DashboardScreen
+-DashboardScreen
 
-SairScreen
+-SairScreen
 
-Bottom Tabs
+-Bottom Tabs
 
-Home – Visão geral e mapa
+**Home** – Visão geral e mapa
 
-Perfil – Dados do usuário
+**Perfil** – Dados do usuário
 
-Configurações – Limites críticos
+**Configurações** – Limites críticos
 
-🛠️ 5. Tecnologias Utilizadas
-Frontend
+# **🛠️ 5. Tecnologias Utilizadas**
+-Frontend
 
-React Native
+-React Native
 
-React Navigation
+-React Navigation
 
-Axios
+-Axios
 
-AsyncStorage
+-AsyncStorage
 
-Victory Native (gráficos)
+-Victory Native (gráficos)
 
-Leaflet/MapView (dependendo da versão do projeto)
+-Leaflet/MapView (dependendo da versão do projeto)
 
-Backend (consumido pelo app)
+-Backend (consumido pelo app)
 
-API RESTful
+-API RESTful
 
-WebSocket
+-WebSocket
 
-Autenticação JWT
+-Autenticação JWT
 
-JSON como padrão
+-JSON como padrão
 
-🚀 6. Instalação e Execução
-Pré-requisitos
+# **🚀Instalação e Execução**
+-Pré-requisitos
 
-Node.js
+-Node.js
 
-React Native CLI
+-React Native CLI
 
-Android Studio ou Xcode
+-Android Studio ou Xcode
 
-Instalação
-git clone https://github.com/SEU_REPOSITORIO/tristack-app
-cd tristack-app
-npm install
+**Instalação**
+-git clone https://github.com/SEU_REPOSITORIO/tristack-app
+-cd tristack-app
+-npm install
 
-Executar no Android
-npx react-native run-android
+**Executar no Android**
+-npx react-native run-android
 
-Executar no iOS
-npx react-native run-ios
+-Executar no iOS
+-npx react-native run-ios
 
-📂 7. Estrutura de Pastas
+# **📂Estrutura de Pastas**
 /src
   /screens
     HomeScreen
@@ -189,12 +189,12 @@ npx react-native run-ios
   /context
 assets/
 
-🔌 8. Conexão com API
-Protocolo: HTTPS
-Formato: JSON
-Autenticação: JWT
+# **🔌Conexão com API**
+-Protocolo: HTTPS
+-Formato: JSON
+-Autenticação: JWT
 
-Endpoints principais:
+**Endpoints principais:**
 
 /login – valida credenciais e retorna token
 
@@ -206,24 +206,24 @@ Endpoints principais:
 
 /settings – limites críticos
 
-📡 9. Modo Offline
-🔒 Persistência via AsyncStorage:
+📡 Modo Offline
+# **🔒 Persistência via AsyncStorage:**
 
-Token JWT
+-Token JWT
 
-Dados ambientais recentes
+-Dados ambientais recentes
 
-Alertas
+-Alertas
 
-Limites críticos
+-Limites críticos
 
-🔄 Sincronização automática:
+# **🔄 Sincronização automática:**
 
 Ao reconectar, o app sincroniza alterações locais → servidor
 
 Conflitos são resolvidos com timestamps
 
-🏗️ 10. Desenvolvimento e Build
+# **🏗️ Desenvolvimento e Build**
 Build Android (APK)
 cd android
 ./gradlew assembleRelease
@@ -233,12 +233,10 @@ cd ios
 pod install
 xcodebuild -workspace .xcworkspace -scheme tristack -configuration Release
 
-🧑‍💻 11. Autores
+# **🧑‍💻 Autores**
 
 Projeto desenvolvido por:
 
-Emanuelly Vitória dos Santos Lima
-
-Ítalo Francesco
-
-Rayssa Nanclares da Silveira
+-Emanuelly Vitória dos Santos Lima
+-Ítalo Francesco
+-Rayssa Nanclares da Silveira
