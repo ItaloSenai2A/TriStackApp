@@ -241,6 +241,6 @@ xcodebuild -workspace .xcworkspace -scheme tristack -configuration Release
 
 Projeto desenvolvido por:
 
--Emanuelly Vitória dos Santos Lima
--Ítalo Francesco
--Rayssa Nanclares da Silveira
+- Emanuelly Vitoria dos Santos Lima
+- Ítalo Francesco
+- Rayssa Nanclares da Silveira
