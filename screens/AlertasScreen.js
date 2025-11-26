@@ -1,200 +1,288 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
+  Text,
+  StyleSheet,
   TouchableOpacity,
   Modal,
-  Pressable,
+  ScrollView,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 
-export default function AlertasScreen() {
-  const [modalVisible, setModalVisible] = useState(null); // null = nenhum aberto
+export default function Alertas({ isDarkMode }) {
+  const alerts = [
+    {
+      id: 1,
+      type: "critical",
+      title: "Notificação crítica",
+      desc: "Ação imediata necessária",
+      alertTitle: "Alerta de incêndio",
+      description:
+        "Os sensores detectaram uma combinação de alta temperatura e baixa umidade no canavial, aumentando significativamente o risco de incêndio. A situação exige atenção imediata do produtor.",
+      buttonText: "ENTENDIDO",
+    },
+    {
+      id: 2,
+      type: "moderate",
+      title: "Notificação moderada",
+      desc: "Verificar em breve",
+      alertTitle: "Umidade baixa",
+      description:
+        "Os sensores indicaram uma leve diminuição na umidade. Não é uma emergência, mas precisa ser monitorado.",
+      buttonText: "OK",
+    },
+    {
+      id: 3,
+      type: "info",
+      title: "Notificação informativa",
+      desc: "Somente para conhecimento",
+      alertTitle: "Condições normais",
+      description:
+        "Os sensores indicam que tudo está dentro da normalidade.",
+      buttonText: "Certo",
+    },
+  ];
+
+  const COLORS = {
+    critical: { border: "#E74C3C", iconBg: "#FCECEC" },
+    moderate: { border: "#F1C40F", iconBg: "#FFF8E6" },
+    info: { border: "#3498DB", iconBg: "#EAF4FF" },
+  };
+
+  const [selectedAlert, setSelectedAlert] = useState(null);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Título */}
-      <Text style={styles.title}>Alertas</Text>
+    <View
+      style={[
+        styles.app,
+        { backgroundColor: isDarkMode ? "#1b3a2f" : "#f6f8fb" },
+      ]}
+    >
+      <ScrollView contentContainerStyle={styles.list}>
+        {alerts.map((a) => {
+          const c = COLORS[a.type];
 
-      {/* Lista de notificações */}
-      <View style={styles.list}>
-        {/* Notificação Crítica */}
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => setModalVisible("critico")}
-        >
-          <Ionicons name="alert-circle" size={28} color="red" />
-          <Text style={styles.cardText}>Notificação Crítica</Text>
-          <Ionicons name="chevron-forward" size={22} color="#000" />
-        </TouchableOpacity>
-
-        {/* Notificação Moderada */}
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => setModalVisible("moderado")}
-        >
-          <Ionicons name="alert" size={28} color="#D4C200" />
-          <Text style={styles.cardText}>Notificação Moderada</Text>
-          <Ionicons name="chevron-forward" size={22} color="#000" />
-        </TouchableOpacity>
-
-        {/* Notificação Informativa */}
-        <TouchableOpacity
-          style={styles.card}
-          onPress={() => setModalVisible("informativo")}
-        >
-          <Ionicons name="information-circle" size={28} color="#4DA6FF" />
-          <Text style={styles.cardText}>Notificação Informativa</Text>
-          <Ionicons name="chevron-forward" size={22} color="#000" />
-        </TouchableOpacity>
-      </View>
-
-      {/* MODAL - Notificação Crítica */}
-      <Modal
-        visible={modalVisible === "critico"}
-        animationType="slide"
-        transparent={true}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Ionicons name="alert" size={60} color="#FF0000" />
-            <Text style={styles.modalTitle}>Notificação Crítica</Text>
-            <View style={[styles.alertBox, { backgroundColor: "#FF0000" }]}>
-              <Text style={styles.alertText}>Alerta de incêndio</Text>
-            </View>
-            <Text style={styles.modalSubtitle}>Condição de alto risco!</Text>
-            <Text style={styles.modalText}>
-              Os sensores detectaram uma combinação de alta temperatura e baixa
-              umidade no canavial, aumentando significativamente o risco de
-              incêndio. A situação exige atenção imediata do produtor, pois há
-              chance de propagação rápida de fogo. Recomendamos verificar a área
-              afetada e acionar medidas preventivas para evitar perdas e danos
-              ambientais.
-            </Text>
-
-            <Pressable
-              style={styles.okButton}
-              onPress={() => setModalVisible(null)}
+          return (
+            <TouchableOpacity
+              key={a.id}
+              style={[
+                styles.item,
+                {
+                  borderColor: isDarkMode ? "#fff" : c.border + "55",
+                  backgroundColor: isDarkMode ? "#1b3a2f" : "#fff",
+                },
+              ]}
+              onPress={() => setSelectedAlert(a)}
             >
-              <Text style={styles.okText}>ENTENDIDO</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+              <View style={styles.itemLeft}>
+                <View
+                  style={[
+                    styles.iconWrap,
+                    { borderColor: c.border, backgroundColor: c.iconBg },
+                  ]}
+                >
+                  <Text style={{ fontSize: 28 }}>⚠️</Text>
+                </View>
 
-      {/* MODAL - Notificação Moderada */}
-      <Modal
-        visible={modalVisible === "moderado"}
-        animationType="slide"
-        transparent={true}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Ionicons name="alert" size={60} color="#B4BB53" />
-            <Text style={styles.modalTitle}>Notificação Moderada</Text>
-            <View style={[styles.alertBox, { backgroundColor: "#B4BB53" }]}>
-              <Text style={styles.alertText}>Alerta de atenção</Text>
-            </View>
-            <Text style={styles.modalSubtitle}>Condição moderada</Text>
-            <Text style={styles.modalText}>
-              Foi detectada uma situação que requer atenção, mas não apresenta
-              risco imediato. Recomendamos monitorar o ambiente e verificar
-              possíveis mudanças nas condições.
-            </Text>
+                <View>
+                  <Text
+                    style={[
+                      styles.itemTitle,
+                      { color: isDarkMode ? "#fff" : "#0f172a" },
+                    ]}
+                  >
+                    {a.title}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.itemDesc,
+                      { color: isDarkMode ? "#d1d5db" : "#6b7280" },
+                    ]}
+                  >
+                    {a.desc}
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
 
-            <Pressable
-              style={styles.okButton}
-              onPress={() => setModalVisible(null)}
+      {/* MODAL */}
+      <Modal visible={!!selectedAlert} transparent animationType="fade">
+        {selectedAlert && (
+          <View style={styles.modalBackground}>
+            <View
+              style={[
+                styles.modalCard,
+                {
+                  backgroundColor: isDarkMode ? "#246816" : "#fff",
+                  borderColor: isDarkMode ? "#fff" : "#ddd",
+                },
+              ]}
             >
-              <Text style={styles.okText}>ENTENDIDO</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+              <TouchableOpacity
+                style={[
+                  styles.closeBtn,
+                  { backgroundColor: COLORS[selectedAlert.type].border },
+                ]}
+                onPress={() => setSelectedAlert(null)}
+              >
+                <Text style={styles.closeTxt}>✕</Text>
+              </TouchableOpacity>
 
-      {/* MODAL - Notificação Informativa */}
-      <Modal
-        visible={modalVisible === "informativo"}
-        animationType="slide"
-        transparent={true}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Ionicons name="information-circle" size={60} color="#5392BB" />
-            <Text style={styles.modalTitle}>Notificação Informativa</Text>
-            <View style={[styles.alertBox, { backgroundColor: "#5392BB" }]}>
-              <Text style={styles.alertText}>Informação</Text>
+              <Text style={styles.modalTitle}>{selectedAlert.title}</Text>
+
+              <View
+                style={[
+                  styles.alertHeader,
+                  { backgroundColor: COLORS[selectedAlert.type].border },
+                ]}
+              >
+                <Text style={styles.alertHeaderText}>
+                  {selectedAlert.alertTitle}
+                </Text>
+              </View>
+
+              <ScrollView
+                style={[
+                  styles.modalDescription,
+                  { borderColor: COLORS[selectedAlert.type].border },
+                ]}
+              >
+                <Text style={{ color: isDarkMode ? "#fff" : "#111" }}>
+                  {selectedAlert.description}
+                </Text>
+              </ScrollView>
+
+              <TouchableOpacity
+                style={[
+                  styles.modalButton,
+                  { backgroundColor: COLORS[selectedAlert.type].border },
+                ]}
+                onPress={() => setSelectedAlert(null)}
+              >
+                <Text style={styles.modalButtonText}>
+                  {selectedAlert.buttonText}
+                </Text>
+              </TouchableOpacity>
             </View>
-            <Text style={styles.modalSubtitle}>Condição normal</Text>
-            <Text style={styles.modalText}>
-              Nenhum risco foi detectado. Continue acompanhando as informações
-              do sistema para se manter atualizado sobre a situação.
-            </Text>
-
-            <Pressable
-              style={styles.okButton}
-              onPress={() => setModalVisible(null)}
-            >
-              <Text style={styles.okText}>ENTENDIDO</Text>
-            </Pressable>
           </View>
-        </View>
+        )}
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", padding: 16 },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginVertical: 16,
+  app: {
+    flex: 1,
+    padding: 20,
   },
-  list: { marginTop: 8 },
-  card: {
+
+  list: {
+    gap: 12,
+    paddingBottom: 40,
+  },
+
+  item: {
+    padding: 16,
+    borderWidth: 1,
+    borderRadius: 22,
+  },
+
+  itemLeft: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f2f2f2",
-    padding: 14,
-    borderRadius: 8,
-    marginBottom: 12,
+    gap: 16,
   },
-  cardText: { flex: 1, marginLeft: 10, fontSize: 16, fontWeight: "500" },
 
-  // Estilo dos modais
-  modalContainer: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.4)",
+  iconWrap: {
+    width: 68,
+    height: 68,
+    borderRadius: 16,
+    borderWidth: 3,
     justifyContent: "center",
     alignItems: "center",
   },
-  modalContent: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
-    width: "90%",
+
+  itemTitle: {
+    fontSize: 17,
+    fontWeight: "700",
+  },
+
+  itemDesc: {
+    fontSize: 13,
+    marginTop: 4,
+  },
+
+  /* MODAL */
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
-  modalTitle: { fontSize: 20, fontWeight: "bold", marginVertical: 10 },
-  alertBox: {
-    backgroundColor: "red",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+
+  modalCard: {
+    width: "90%",
+    padding: 20,
+    borderRadius: 16,
+    borderWidth: 1,
+  },
+
+  closeBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+  },
+
+  closeTxt: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+
+  modalTitle: {
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 20,
+    marginTop: 10,
+  },
+
+  alertHeader: {
+    padding: 10,
     borderRadius: 6,
-    marginVertical: 8,
+    marginTop: 16,
   },
-  alertText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
-  modalSubtitle: { fontSize: 16, fontWeight: "bold", marginVertical: 8 },
-  modalText: { fontSize: 14, textAlign: "center", marginBottom: 16 },
-  okButton: {
-    backgroundColor: "#4CB917",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+
+  alertHeaderText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "700",
+  },
+
+  modalDescription: {
+    borderWidth: 1,
+    marginTop: 16,
+    padding: 12,
     borderRadius: 6,
+    maxHeight: 200,
   },
-  okText: { color: "#fff", fontWeight: "bold" },
+
+  modalButton: {
+    marginTop: 20,
+    padding: 12,
+    borderRadius: 10,
+  },
+
+  modalButtonText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "700",
+  },
 });
