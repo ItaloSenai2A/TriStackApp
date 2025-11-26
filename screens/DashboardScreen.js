@@ -18,45 +18,39 @@ export default function DashboardScreen() {
   const lightIntensityData = {
     labels: ["1h", "2h", "3h", "4h", "5h", "6h"],
     datasets: [
-      {
-        data: [300, 320, 310, 330, 340, 350],
-        color: () => "#0d6efd", // Azul
-      },
-      {
-        data: [250, 270, 260, 280, 290, 300],
-        color: () => "#20c997", // Verde
-      },
+      { data: [300, 320, 310, 330, 340, 350], color: () => "#0d6efd" },
+      { data: [250, 270, 260, 280, 290, 300], color: () => "#20c997" }
     ]
   };
+
+  const chartWidth = screenWidth - 60; // ajuste para não vazar do card
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Painel Ambiental 🌿</Text>
 
-      {/* CARDS */}
       <View style={styles.row}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Nível de Água</Text>
-          <Text style={[styles.cardValue, { color: "#007bff" }]}>30%</Text>
+          <Text style={[styles.cardValue, { color: "#007bff", fontSize: 28 }]}>30%</Text>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Vento</Text>
-          <Text style={[styles.cardValue, { color: "#fd7e14" }]}>60 km/h</Text>
+          <Text style={[styles.cardValue, { color: "#fd7e14", fontSize: 28 }]}>60 km/h</Text>
         </View>
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Qualidade do Ar</Text>
-          <Text style={[styles.cardValue, { color: "#28a745" }]}>Boa</Text>
+          <Text style={[styles.cardValue, { color: "#28a745", fontSize: 28 }]}>Boa</Text>
         </View>
       </View>
 
-      {/* TEMPERATURA */}
       <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Temperatura (°C)</Text>
         <LineChart
           data={temperatureData}
-          width={screenWidth - 40}
+          width={chartWidth}
           height={220}
           yAxisSuffix="°"
           chartConfig={chartConfig}
@@ -65,12 +59,11 @@ export default function DashboardScreen() {
         />
       </View>
 
-      {/* UMIDADE DO SOLO */}
       <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Umidade do Solo (%)</Text>
         <LineChart
           data={soilMoistureData}
-          width={screenWidth - 40}
+          width={chartWidth}
           height={220}
           yAxisSuffix="%"
           chartConfig={chartConfigGreen}
@@ -79,12 +72,11 @@ export default function DashboardScreen() {
         />
       </View>
 
-      {/* LUZ - BARRAS */}
       <View style={styles.chartBox}>
         <Text style={styles.chartTitle}>Intensidade da Luz</Text>
         <BarChart
           data={lightIntensityData}
-          width={screenWidth - 40}
+          width={chartWidth}
           height={260}
           chartConfig={chartConfig}
           fromZero
@@ -143,7 +135,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   cardValue: {
-    fontSize: 36,
+    fontSize: 36, // padrão, mas ajustado inline nos cards para 28
     fontWeight: "bold",
   },
   chartBox: {
@@ -152,6 +144,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     elevation: 4,
+    alignItems: "center",
   },
   chartTitle: {
     textAlign: "center",
@@ -161,5 +154,6 @@ const styles = StyleSheet.create({
   },
   chart: {
     borderRadius: 12,
+    alignSelf: "center",
   },
 });
