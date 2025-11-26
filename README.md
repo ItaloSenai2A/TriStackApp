@@ -1,156 +1,243 @@
-🌿  Mapa Vivo do Campo Inteligente - Aplicativo Mobile
+🌾 Mapa Vivo do Campo Inteligente
+Aplicativo mobile desenvolvido em React Native, focado no monitoramento de dados ambientais, exibição de alertas críticos, funcionamento offline e integração com sensores IoT.
+O TriStack oferece uma experiência rápida, segura e confiável, mesmo em ambientes com conexão limitada.
 
-TriStack é um aplicativo mobile desenvolvido em React Native, voltado para monitoramento ambiental, gerenciamento de alertas e dashboards de dados, com navegação intuitiva via Stack Navigator e Bottom Tab Navigator.
+📑 Índice
 
-⚡ 1. Tecnologias Utilizadas
+Visão Geral
 
-📱 React Native
+Funcionalidades
 
-🔀 React Navigation (Stack & Bottom Tabs)
+Arquitetura do App
 
-🛠️ Expo CLI
+Estrutura de Navegação
 
-📊 Victory Native (gráficos)
+Tecnologias Utilizadas
 
-🗺️ React Native Maps / Leaflet (mapas)
+Instalação e Execução
 
-⚛️ Context API / Redux (gerenciamento de estado, se aplicado)
+Estrutura de Pastas
 
-📁 2. Estrutura de Pastas
-TriStack/
-│
-├── App.js                 
-├── package.json           
-├── /src
-│   ├── /screens           
-│   │   ├── WelcomeScreen.js
-│   │   ├── CadastroScreen.js
-│   │   ├── LoginScreen.js
-│   │   ├── HomeScreen.js
-│   │   ├── ProfileScreen.js
-│   │   ├── SettingsScreen.js
-│   │   ├── AdministracaoScreen.js
-│   │   ├── AlertasScreen.js
-│   │   ├── DashboardScreen.js
-│   │   └── SairScreen.js
-│   ├── /components        
-│   ├── /navigation        
-│   └── /assets            
-└── README.md
+Conexão com API
 
-⚙️ 3. Instalação e Configuração
+Modo Offline
 
-Clone o repositório:
+Desenvolvimento e Build
 
-git clone https://github.com/seu-usuario/TriStack.git
-cd TriStack
+Autores
 
+🔍 1. Visão Geral
 
-Instale as dependências:
+O TriStack coleta dados de sensores IoT, processa informações críticas e exibe gráficos, mapas e alertas para o usuário.
+O app funciona online e offline, sincronizando automaticamente dados, limites críticos e alertas.
 
-npm install
-# ou
-yarn install
+Principais objetivos:
 
+Monitorar temperatura, umidade, luminosidade e outros indicadores ambientais.
 
-Execute o aplicativo:
+Mostrar alertas em tempo real.
 
-npm start
-# ou
-yarn start
+Garantir funcionamento mesmo sem internet.
 
+Sincronizar dados com API REST + WebSocket.
 
-Para Android:
+Fornecer navegação intuitiva e rápida.
 
-npm run android
-# ou
-yarn android
+⚙️ 2. Funcionalidades
+🛰️ Monitoramento em tempo real
 
+Atualização de dados via API e WebSocket.
 
-Para iOS:
+Gráficos dinâmicos no Dashboard.
 
-npm run ios
-# ou
-yarn ios
+🚨 Gestão de alertas
 
+Alertas críticos com cores visuais.
 
-⚠️ Certifique-se de ter Android Studio ou Xcode configurado.
+Histórico e detalhes de cada alerta.
 
-🧭 4. Fluxo de Navegação e Wireframes
-🔹 Stack Navigator
+Notificações locais.
 
-WelcomeScreen → CadastroScreen / LoginScreen
+📍 Mapa Interativo
 
-LoginScreen → MainTabs
+Exibição de marcadores e zonas críticas.
 
-Menu lateral → AdministracaoScreen / AlertasScreen / DashboardScreen / SairScreen
+🧾 Persistência Offline
 
-🔹 Bottom Tab Navigator
+Acesso a dados mesmo sem internet.
 
-🏠 Home
+Sincronização automática ao reconectar.
 
-👤 Perfil
+👤 Perfil do Usuário
 
-⚙️ Configurações
+Edição de dados pessoais.
 
-🖼️ Wireframes das Telas
+Foto de perfil.
+
+🔧 Configurações
+
+Alteração de limites críticos.
+
+Salvamento local + sincronização posterior.
+
+🧱 3. Arquitetura do App
+
+React Native CLI
+
+React Navigation (Stack + Bottom Tabs)
+
+Context API / Redux (opcional) para estado global
+
+AsyncStorage para persistência offline
+
+Axios para API
+
+WebSocket para alertas em tempo real
+
+🧭 4. Estrutura de Navegação
+
+O app combina Stack Navigator + Bottom Tab Navigator.
+
+Stack Principal
 
 WelcomeScreen
 
+LoginScreen
 
 CadastroScreen
 
-
-LoginScreen
-
-
-HomeScreen
-
-
-ProfileScreen
-
-
-SettingsScreen
-
+MainTabs
 
 AdministracaoScreen
 
-
 AlertasScreen
-
 
 DashboardScreen
 
-
 SairScreen
 
+Bottom Tabs
 
-✅ 5. Funcionalidades Principais
+Home – Visão geral e mapa
 
-👥 Cadastro e login de usuários
+Perfil – Dados do usuário
 
-🌡️ Visualização de dados ambientais
+Configurações – Limites críticos
 
-🗺️ Mapas com áreas críticas
+🛠️ 5. Tecnologias Utilizadas
+Frontend
 
-🚨 Gerenciamento de alertas
+React Native
 
-📊 Dashboard com gráficos detalhados
+React Navigation
 
-📝 Ações administrativas e checklist
+Axios
 
-🔒 Logout seguro
+AsyncStorage
 
-🔄 6. Fluxograma de Navegação
+Victory Native (gráficos)
 
-O fluxograma mostra como as telas se conectam via Stack Navigator, Bottom Tabs e menu lateral.
+Leaflet/MapView (dependendo da versão do projeto)
 
-🚀 7. Próximos Passos
+Backend (consumido pelo app)
 
-🔗 Integrar com API REST para dados reais
+API RESTful
 
-🔐 Autenticação avançada com JWT ou Firebase
+WebSocket
 
-🧪 Testes unitários e de integração
+Autenticação JWT
 
-⚡ Otimização de performance de mapas e gráficos
+JSON como padrão
+
+🚀 6. Instalação e Execução
+Pré-requisitos
+
+Node.js
+
+React Native CLI
+
+Android Studio ou Xcode
+
+Instalação
+git clone https://github.com/SEU_REPOSITORIO/tristack-app
+cd tristack-app
+npm install
+
+Executar no Android
+npx react-native run-android
+
+Executar no iOS
+npx react-native run-ios
+
+📂 7. Estrutura de Pastas
+/src
+  /screens
+    HomeScreen
+    LoginScreen
+    ProfileScreen
+    SettingsScreen
+    AdministracaoScreen
+    DashboardScreen
+    AlertasScreen
+  /components
+  /navigation
+  /services
+    api.js
+    websocket.js
+  /utils
+  /context
+assets/
+
+🔌 8. Conexão com API
+Protocolo: HTTPS
+Formato: JSON
+Autenticação: JWT
+
+Endpoints principais:
+
+/login – valida credenciais e retorna token
+
+/register – cria usuário
+
+/dashboard – dados ambientais
+
+/alerts – alertas críticos
+
+/settings – limites críticos
+
+📡 9. Modo Offline
+🔒 Persistência via AsyncStorage:
+
+Token JWT
+
+Dados ambientais recentes
+
+Alertas
+
+Limites críticos
+
+🔄 Sincronização automática:
+
+Ao reconectar, o app sincroniza alterações locais → servidor
+
+Conflitos são resolvidos com timestamps
+
+🏗️ 10. Desenvolvimento e Build
+Build Android (APK)
+cd android
+./gradlew assembleRelease
+
+Build iOS
+cd ios
+pod install
+xcodebuild -workspace .xcworkspace -scheme tristack -configuration Release
+
+🧑‍💻 11. Autores
+
+Projeto desenvolvido por:
+
+Emanuelly Vitória dos Santos Lima
+
+Ítalo Francesco
+
+Rayssa Nanclares da Silveira
