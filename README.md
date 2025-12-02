@@ -244,3 +244,11 @@ Projeto desenvolvido por:
 - Emanuelly Vitoria dos Santos Lima
 - Ítalo Francesco
 - Rayssa Nanclares da Silveira
+
+
+Documentação:
+[Documentação React-Native - TriStack.pdf](https://github.com/user-attachments/files/23882384/Documentacao.React-Native.-.TriStack.pdf)
+
+Manual de Usuário:
+[_Manual de usuário React-Native - TriStack.pdf](https://github.com/user-attachments/files/23882385/_Manual.de.usuario.React-Native.-.TriStack.pdf)
+
